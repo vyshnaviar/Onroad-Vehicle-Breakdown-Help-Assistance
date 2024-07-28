@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RoadMech{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v={{ timestamp }}">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="logo-container">
+                <img src="{% static 'images/logoo.png' %}" alt="RoadMech Logo" class="logo">
+                <h2 class="roadmech">RoadMech</h2>
+                <nav class="navigation">
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'aboutus' %}">About Us</a>
+                    <a href="{% url 'services' %}">Services</a>
+                    <a href="{% url 'customers' %}">Profile</a>
+                    {% if user.is_authenticated %}
+                        <h5>Hello, {{ user.username }}</h5><br>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                        {% if request.resolver_match.url_name != 'login' %}
+                            <a href="{% url 'login' %}">Login</a>
+                        {% endif %}
+                        <a href="{% url 'register' %}">Register</a>
+                    {% endif %}
+                </nav>
+            </div>
+        </header>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <footer>
+            <p>&copy; 2024 RoadMech. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.body.style.backgroundImage = "url('{% static 'images/slide-3.jpg' %}')";
+    </script>
+
+</body>
+</html>

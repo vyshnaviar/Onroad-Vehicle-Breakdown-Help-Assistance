@@ -1,0 +1,155 @@
+{% extends 'onroad/base.html' %}
+
+{% block title %}Car Service - RoadMech{% endblock %}
+
+{% block content %}
+<style>
+    h2 {
+        color: #003366; /* Change header color */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-size: 2em;
+        margin-bottom: 0.5em;
+    }
+
+    form {
+        background: transparent;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 100%;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    button, input[type="submit"], #location-button {
+        background: linear-gradient(135deg, #162938, #004080);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+        margin-top: 10px;
+        display: block;
+        width: 100%;
+    }
+
+    button:hover, input[type="submit"]:hover, #location-button:hover {
+        background: linear-gradient(135deg, #004080, #162938);
+        transform: translateY(-3px);
+    }
+
+    .error-message {
+        color: #ff0000; /* Red color for error messages */
+        margin-bottom: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #fff; /* Color for labels */
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background: #f9f9f9;
+        transition: background 0.3s;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+        background: #e0f7ff;
+        border-color: #004080;
+        outline: none;
+    }
+
+    .message {
+        color: #003366; /* Color for success or info messages */
+        background: #e0ffe0;
+        border: 1px solid #003366;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    a {
+        color: #003366; /* Color for links */
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<h2>Car Service Request</h2>
+<form method="POST">
+    {% csrf_token %}
+    
+    {% for field in form %}
+        <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+                <div class="error-message">
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    
+    <button type="submit">Submit</button>
+    <button type="button" id="location-button" onclick="getLocation()">Use Current Location</button>
+</form>
+
+<a href="/">Back to Home</a>
+
+
+
+<script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function showPosition(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const locationField = document.querySelector('input[name="location"]');
+        locationField.value = `Latitude: ${latitude}, Longitude: ${longitude}`;
+    }
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+        }
+    }
+</script>
+{% endblock %}

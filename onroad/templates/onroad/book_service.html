@@ -1,0 +1,80 @@
+{% extends 'onroad/base.html' %}
+
+{% block title %}BookingService - RoadMech{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 200px;
+        }
+
+        h1 {
+            color: #fff;
+        }
+
+        .services {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .service-item {
+            text-decoration: none;
+            color: #162938;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .service-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .icon {
+            font-size: 2rem;
+        }
+
+        .service-name {
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the ServiceNow Page</h1>
+        <div class="services">
+            <a href="{% url 'car' %}" class="service-item">
+                <div class="icon">🚗</div>
+                <div class="service-name">Car</div>
+            </a>
+            <a href="{% url 'bike' %}" class="service-item">
+                <div class="icon">🚲</div>
+                <div class="service-name">Bike</div>
+                
+            </a>
+            
+        </div>
+    </div>
+{% endblock %}

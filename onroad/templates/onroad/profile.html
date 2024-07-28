@@ -1,0 +1,143 @@
+{% extends 'onroad/base.html' %}
+
+{% block title %}Profile - RoadMech{% endblock %}
+
+{% block content %}
+    <style>
+        /* body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(white, grey);
+            margin: 0;
+            padding: 0;
+            color: #162938;
+        } */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: transparent;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: rgb(24, 24, 126);
+        }
+        h2 {
+            color: rgb(24, 24, 126);
+            border-bottom: 2px solid #162938;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        form {
+            margin: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group input[type="password"] {
+            font-family: sans-serif;
+        }
+        button {
+            background-color: #162938;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0f1d26;
+        }
+        .form-error {
+            color: #d9534f;
+            margin-top: 5px;
+        }
+        .booking-history {
+            margin-top: 30px;
+        }
+        .booking-history table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .booking-history th,
+        .booking-history td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .booking-history th {
+            background-color: #162938;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Profile</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <h2>Update User Information</h2>
+                {% for field in user_form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <h2>Update Profile Information</h2>
+                {% for field in profile_form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit">Save Changes</button>
+        </form>
+        <!-- <div class="booking-history">
+            <h2>Booking History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service Type</th>
+                        <th>Service Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking.service_type }}</td>
+                            <td>{{ booking.booking_date|date:"Y-m-d H:i" }}</td>
+                            <td>{{ booking.status }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3">No bookings found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div> -->
+    </div>
+
+    {% endblock %}

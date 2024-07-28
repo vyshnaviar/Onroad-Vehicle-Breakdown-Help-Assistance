@@ -1,0 +1,116 @@
+{% extends 'onroad/base.html' %}
+
+{% block title %}Services - RoadMech{% endblock %}
+
+{% block content %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #f4f4f4;
+        }
+
+        .services-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 80%;
+            max-width: 1200px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .service {
+            flex: 1 1 200px; /* Flex properties to control item width */
+            background: transparent;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .service h3 {
+            font-size: 1.8em;
+            color: #fff;
+            margin: 10px 0;
+        }
+
+        .service p {
+            font-size: 1em;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .service .icon {
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+    </style>
+
+    <div class="services-section">
+        <div class="service">
+            <i class="fas fa-car-battery icon"></i>
+            <h3>Battery-Jumpstart</h3>
+            <p>Get jumpstart from professionals</p>
+        </div>
+
+        <div class="service">
+            <i class="fas fa-gas-pump icon"></i>
+            <h3>Fuel-Delivery</h3>
+            <p>Petrol/Diesel delivered faster</p>
+        </div>
+
+        <div class="service">
+            <i class="fas fa-truck icon"></i>
+            <h3>Towing</h3>
+            <p>Anything from flatbed to safe lifting</p>
+        </div>
+
+        <div class="service">
+            <i class="fas fa-tools icon"></i>
+            <h3>General Services</h3>
+            <p>Regular maintenance and servicing tasks</p>
+        </div>
+
+        <div class="service">
+            <i class="fas fa-wrench icon"></i>
+            <h3>Flat-Tyre</h3>
+            <p>Tube or Tubeless puncture repair</p>
+        </div>
+
+        <div class="service">
+            <i class="fas fa-key icon"></i>
+            <h3>Key-Unlock-Assistance</h3>
+            <p>One-stop unlock assistance</p>
+        </div>
+
+        <div class="service">
+            <i class="fas fa-cogs icon"></i>
+            <h3>Starting Problem</h3>
+            <p>Make your vehicle moving</p>
+        </div>
+
+        <div class="service">
+            <i class="fas fa-wrench icon"></i>
+            <h3>Fitment Service</h3>
+            <p>Make your vehicle upgrade style this</p>
+        </div>
+    </div>
+
+    <!-- Ensure you have included Font Awesome in your project -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js" integrity="sha512-..." crossorigin="anonymous"></script>
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'onroad/base.html' %}
+
+{% block title %}Checkout - RoadMech{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: transparent;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .checkout-container {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 150px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .checkout-title {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .payment-options {
+        margin-bottom: 20px;
+    }
+
+    .contact-us {
+        margin-top: 20px;
+        font-size: 1rem;
+    }
+
+    .contact-us a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .contact-us a:hover {
+        text-decoration: underline;
+    }
+
+    button[type="submit"] {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    button[type="submit"]:hover {
+        background-color: darkred;
+    }
+</style>
+
+<div class="checkout-container">
+    <h1 class="checkout-title">Checkout Payment</h1>
+    <form method="POST" action="{% url 'checkout' %}">
+        {% csrf_token %}
+        <input type="hidden" name="booking_id" value="{{ booking.id }}">
+        <!-- Other fields and submit button -->
+  
+    
+        <div class="form-group">
+            <label for="payment-method">Payment Method:</label>
+            <select name="payment-method" id="payment-method">
+                <option value="cod">Cash on Delivery</option>
+                
+            </select>
+        </div>
+        <div id="card-element" class="form-group" style="display: none;">
+            <!-- Stripe Card Element will be inserted here -->
+        </div>
+        <input type="hidden" name="stripeToken" id="stripeToken">
+        <button type="submit">Submit</button>
+    </form>
+    <div class="contact-us">
+        <p>Have any queries? <a href="{% url 'contact' %}">Contact Us</a></p>
+    </div>
+</div>
+
+<!-- Include Stripe.js -->
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var stripe = Stripe('{{ stripe_public_key }}');
+        var elements = stripe.elements();
+        var cardElement = elements.create('card');
+        var paymentMethodSelect = document.getElementById('payment-method');
+        var cardContainer = document.getElementById('card-element');
+
+        paymentMethodSelect.addEventListener('change', function() {
+            if (paymentMethodSelect.value === 'card') {
+                cardContainer.style.display = 'block';
+                cardElement.mount('#card-element');
+            } else {
+                cardContainer.style.display = 'none';
+            }
+        });
+
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+            if (paymentMethodSelect.value === 'card') {
+                event.preventDefault();
+                stripe.createToken(cardElement).then(function(result) {
+                    if (result.error) {
+                        alert(result.error.message);
+                    } else {
+                        document.getElementById('stripeToken').value = result.token.id;
+                        form.submit();
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+{% endblock %}

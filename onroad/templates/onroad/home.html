@@ -1,0 +1,15 @@
+
+
+{% extends 'onroad/base.html' %}
+
+{% block title %}Home - RoadMech{% endblock %}
+
+{% block content %}
+<div class="home">
+    <h2>Welcome to RoadMech</h2>
+    <p>Get your vehicle fixed hassle-free with RoadMech. We provide reliable and efficient services tailored to your needs.</p>
+    <a href="{% url 'services' %}" class="explore-btn">Explore Our Services</a>
+    <a href="{% url 'book_service' %}" class="booknow-btn">Book a Service</a>
+</div>
+{% endblock %}
+

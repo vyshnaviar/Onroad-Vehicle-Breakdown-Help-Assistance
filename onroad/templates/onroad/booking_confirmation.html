@@ -1,0 +1,9 @@
+{% extends 'onroad/base.html' %}
+
+{% block title %}Booking Confirmation - RoadMech{% endblock %}
+
+{% block content %}
+    <h2>Booking Confirmation</h2>
+    <p>Your booking has been confirmed.</p>
+    <a href="{% url 'success' service_id=1 service_type='car' %}">Go to Success Page</a>
+{% endblock %}

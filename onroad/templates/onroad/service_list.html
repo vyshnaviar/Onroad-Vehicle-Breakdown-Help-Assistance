@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .service-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .service-item:last-child {
+            border-bottom: none;
+        }
+
+        .service-checkbox {
+            margin-right: 15px;
+        }
+
+        .service-details {
+            flex-grow: 1;
+        }
+
+        .service-details span {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .service-details .username {
+            font-weight: bold;
+        }
+
+        .service-details .phone-no {
+            color: #555;
+        }
+
+        .service-details .services {
+            color: #777;
+        }
+
+        .service-details .location {
+            color: #333;
+        }
+
+        .no-services {
+            text-align: center;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Service Requests</h1>
+        <ul class="service-list">
+            {% if services %}
+                {% for service in services %}
+                    <li class="service-item">
+                        <input type="checkbox" class="service-checkbox" id="service-{{ forloop.counter }}" />
+                        <label for="service-{{ forloop.counter }}" class="service-details">
+                            <span class="username">{{ service.username }}</span>
+                            <span class="phone-no">{{ service.phone_no }}</span>
+                            <span class="services">{{ service.services }}</span>
+                            <span class="location">{{ service.location }}</span>
+                        </label>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li class="no-services">No service requests available.</li>
+            {% endif %}
+        </ul>
+    </div>
+</body>
+</html>
