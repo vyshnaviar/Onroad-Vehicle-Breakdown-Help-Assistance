@@ -152,7 +152,7 @@ header {
 }
 
 
-/* Ensure the entire viewport height is used */
+
 html, body {
     height: 100%;
     margin: 0;
@@ -160,26 +160,26 @@ html, body {
     flex-direction: column;
 }
 
-/* Flex container for the whole page */
+
 .wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* Flex-grow to ensure main takes available space */
+
 main {
     flex: 1;
 }
 
-/* Styling for the footer */
+
 footer {
     background-color: #162938;
     color: #fff;
     text-align: center;
     padding: 10px 0;
-    width: 100%; /* Make footer full width */
-    flex-shrink: 0; /* Prevent footer from shrinking */
+    width: 100%; 
+    flex-shrink: 0; 
 }
 
 

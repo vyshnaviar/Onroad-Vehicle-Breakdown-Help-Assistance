@@ -29,15 +29,15 @@ class ServiceRequest(models.Model):
     def __str__(self):
         return f"{self.services} request by {self.customer_name} for {self.vehicle_model}"
 
-# Define CarServiceRequest model
-class CarServiceRequest(ServiceRequest):
-    def __str__(self):
-        return f"Car Service Request: {super().__str__()}"
-
 # Define BikeServiceRequest model
 class BikeServiceRequest(ServiceRequest):
-    def __str__(self):
-        return f"Bike Service Request: {super().__str__()}"
+    # Remove the profile field as it's no longer required
+    pass
+
+# Define CarServiceRequest model
+class CarServiceRequest(ServiceRequest):
+    # Remove the profile field as it's no longer required
+    pass
 
 # Define Profile model
 class Profile(models.Model):
@@ -48,31 +48,6 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
-
-    # def get_bookings(self):
-    #     return Booking.objects.filter(profile=self)
-
-# # Define Booking model
-# class Booking(models.Model):
-#     SERVICE_OPTIONS = [
-#         ('towing', 'Towing'),
-#         ('tire_replacement', 'Tire Replacement'),
-#         ('fuel_delivery', 'Fuel Delivery'),
-#         ('battery_jumpstart', 'Battery Jumpstart'),
-#         ('flat_tyre', 'Flat Tyre'),
-#         ('general_services', 'General Services'),
-#         ('starting_problem', 'Starting Problem'),
-#         ('fitment_service', 'Fitment Service'),
-#         ('key_unlock_assistance', 'Key-Unlock Assistance')
-#     ]
-    
-#     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-#     service_type = models.CharField(max_length=30, choices=SERVICE_OPTIONS)
-#     booking_date = models.DateTimeField(auto_now_add=True)
-#     status = models.CharField(max_length=20, default='Pending')
-
-#     def __str__(self):
-#         return f"{self.service_type} booking by {self.profile.user.username} on {self.booking_date.strftime('%Y-%m-%d %H:%M:%S')}"
 
 # Define Contact model
 class Contact(models.Model):
@@ -87,19 +62,9 @@ class Contact(models.Model):
 # Define Checkout model
 class Checkout(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    
     payment_status = models.CharField(max_length=20, default='Success')
     created_at = models.DateTimeField(auto_now_add=True)
-    booking_status=models.CharField(max_length=20, default='Success')
+    booking_status = models.CharField(max_length=20, default='Success')
 
     def __str__(self):
-        return f"Checkout for {self.profile.user.username} - {self.payment_status}-{self.booking_status}"
-
-# # Define BookingSuccess model
-# class BookingSuccess(models.Model):
-#     booking = models.OneToOneField(Booking, on_delete=models.CASCADE)
-#     confirmation_message = models.TextField()
-#     created_at = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return f"Booking success for {self.booking.profile.user.username} - {self.booking.service_type}"
+        return f"Checkout for {self.profile.user.username} - {self.payment_status} - {self.booking_status}"

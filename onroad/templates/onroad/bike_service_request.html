@@ -5,7 +5,7 @@
 {% block content %}
 <style>
     h2 {
-        color: #003366; /* Change header color */
+        color: #003366; 
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         font-size: 2em;
         margin-bottom: 0.5em;
@@ -13,10 +13,10 @@
 
     form {
         background: transparent;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        max-width: 400px;
+        padding: 10px;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        max-width: 300px;
         width: 100%;
         animation: fadeIn 1s ease-in-out;
     }
@@ -45,7 +45,7 @@
     }
 
     .error-message {
-        color: #ff0000; /* Red color for error messages */
+        color: #ff0000; 
         margin-bottom: 10px;
     }
 
@@ -56,15 +56,15 @@
     .form-group label {
         display: block;
         margin-bottom: 5px;
-        color: #fff; /* Color for labels */
+        color: #fff;
     }
 
     .form-group input, .form-group select, .form-group textarea {
         width: 100%;
         padding: 10px;
         border-radius: 5px;
-        border: 1px solid #ccc;
-        background: #f9f9f9;
+        border: 2px solid #ccc;
+        background: transparent;
         transition: background 0.3s;
     }
 
@@ -75,7 +75,7 @@
     }
 
     .message {
-        color: #003366; /* Color for success or info messages */
+        color: #003366; 
         background: #e0ffe0;
         border: 1px solid #003366;
         padding: 10px;
@@ -84,7 +84,7 @@
     }
 
     a {
-        color: #003366; /* Color for links */
+        color: #003366; 
         text-decoration: none;
     }
 
@@ -92,7 +92,6 @@
         text-decoration: underline;
     }
 </style>
-
 <h2>Bike Service Request</h2>
 <form method="POST">
     {% csrf_token %}

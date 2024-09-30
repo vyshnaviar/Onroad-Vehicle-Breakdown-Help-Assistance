@@ -4,8 +4,6 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views import View
-
-
 from .forms import RegistrationForm, ProfileForm, UserForm, ContactForm, CarServiceRequestForm, BikeServiceRequestForm,LoginForm
 from .models import CarServiceRequest, BikeServiceRequest, Contact, Profile,Checkout
 from django.conf import settings
@@ -23,8 +21,7 @@ def services(request):
 def customers(request):
     user = request.user
     profile, created = Profile.objects.get_or_create(user=user)
-    # bookings = Booking.objects.filter(profile=profile)
-
+    
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=user)
         profile_form = ProfileForm(request.POST, instance=profile)
@@ -40,7 +37,7 @@ def customers(request):
     return render(request, 'onroad/profile.html', {
         'user_form': user_form,
         'profile_form': profile_form,
-        # 'bookings': bookings,
+        
     })
 
 
@@ -84,19 +81,13 @@ def book_service(request):
 
         if form.is_valid():
             service_request = form.save()
-            # Create a booking entry with the profile of the logged-in user
-            profile = request.user.profile
-            # Booking.objects.create(
-            #     profile=profile,
-            #     service_type=service_type,
-            #     status='Booked'
-            # )
+           
             messages.success(request, 'Service booked successfully!')
             return redirect('service_list')
         else:
             messages.error(request, 'Please correct the errors below.')
     else:
-        form = CarServiceRequestForm()  # Default to CarServiceRequestForm
+        form = CarServiceRequestForm() 
 
     return render(request, 'onroad/book_service.html', {'form': form})
 
@@ -141,6 +132,7 @@ def bike(request):
 def success_view(request):
     return render(request, 'onroad/success.html')
 
+
 @login_required
 def checkout_view(request):
     if request.method == 'POST':
@@ -154,12 +146,10 @@ def checkout_view(request):
         checkout = Checkout(
             profile=profile,
             
-            
         )
         checkout.save()
 
-        return redirect('success')  # Redirect to a success page after saving
-
+        return redirect('success')  
     context = {
         'stripe_public_key': settings.STRIPE_PUBLIC_KEY
     }
@@ -172,7 +162,7 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save()  # Save contact form
+            form.save()  
             return redirect('contact_success')
     else:
         form = ContactForm()

@@ -13,10 +13,10 @@
 
     form {
         background: transparent;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        max-width: 400px;
+        padding: 10px;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        max-width: 300px;
         width: 100%;
         animation: fadeIn 1s ease-in-out;
     }
@@ -56,15 +56,15 @@
     .form-group label {
         display: block;
         margin-bottom: 5px;
-        color: #fff; /* Color for labels */
+        color: #fff;
     }
 
     .form-group input, .form-group select, .form-group textarea {
         width: 100%;
         padding: 10px;
         border-radius: 5px;
-        border: 1px solid #ccc;
-        background: #f9f9f9;
+        border: 2px solid #ccc;
+        background: transparent;
         transition: background 0.3s;
     }
 
@@ -117,7 +117,11 @@
 
 <a href="/">Back to Home</a>
 
-
+{% if messages %}
+    {% for message in messages %}
+        <p class="message">{{ message }}</p>
+    {% endfor %}
+{% endif %}
 
 <script>
     function getLocation() {
